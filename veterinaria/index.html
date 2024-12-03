@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Formulário</title> 
+    <script>
+        function verificarLocalizacao() {
+            if (navigator.geolocation) { // API de geolocalização.
+                navigator.geolocation.getCurrentPosition((position) => { // Obtém a posição do usuário.
+                    // Pega a latitude e longitude do usuário.
+                    const latitude = position.coords.latitude; 
+                    const longitude = position.coords.longitude;
+
+                    const latitudeSala = -23.2685568; // Latitude fixa da sala de aula.
+                    const longitudeSala = -47.2973312; // Longitude fixa da sala de aula.
+
+                    // Calcula a distância entre o usuário e a sala.
+                    const distancia = Math.sqrt(
+                        // Diferença de latitude e longitude ao quadrado.
+                        Math.pow(latitude - latitudeSala, 2) + 
+                        Math.pow(longitude - longitudeSala, 2)
+                    );
+
+                    // 100 metros = 0.001  | 1 metro = 0.000009
+                    if (distancia < 0.001) { 
+                        document.getElementById("formulario").style.display = "block"; 
+                        document.getElementById("aviso").style.display = "none"; 
+                    } else {
+                        alert("Você não está na sala de aula!"); 
+                    }
+                });
+            } 
+        }
+    </script>
+</head>
+<!-- Executa a função de verificação de localização. -->
+<body onload="verificarLocalizacao()"> 
+    <div id="aviso">
+        <p>Verificando sua localização...</p>
+    </div>
+    <form id="formulario" style="display: none;"> 
+        <label for="nome">Nome:</label> 
+        <input type="text" id="nome" name="nome" required><br><br> 
+
+        <label for="rgm">RGM:</label>
+        <input type="text" id="rgm" name="rgm" required><br><br> 
+
+        <label for="turma">Turma:</label>
+        <input type="text" id="turma" name="turma" required><br><br> 
+
+        <label for="turno">Turno:</label>
+        <input type="text" id="turno" name="turno" required><br><br> 
+
+        <button type="submit">Enviar</button> 
+    </form>
+</body>
+</html>
