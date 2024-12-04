@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Restrito</title>
+    <script>
+        const distanciaMaxima = 20; // 20 metros
+
+        function verificarAcesso() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const latitudeOrigem = parseFloat(urlParams.get("lat"));
+            const longitudeOrigem = parseFloat(urlParams.get("lon"));
+
+            console.log("Latitude de origem:", latitudeOrigem, "Longitude de origem:", longitudeOrigem);
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitudeUsuario = Math.round(position.coords.latitude * 1e6) / 1e6;
+                    const longitudeUsuario = Math.round(position.coords.longitude * 1e6) / 1e6;
+
+                    console.log("Latitude do usuário:", latitudeUsuario, "Longitude do usuário:", longitudeUsuario);
+
+                    const distancia = calcularDistancia(latitudeOrigem, longitudeOrigem, latitudeUsuario, longitudeUsuario);
+                    console.log("Distância calculada:", distancia, "metros");
+
+                    if (distancia <= distanciaMaxima) {
+                        document.getElementById("formulario").style.display = "block";
+                    } else {
+                        alert(`Você está muito longe para acessar este formulário (${distancia.toFixed(2)} metros).`);
+                    }
+                }, () => {
+                    alert("Não foi possível obter a localização. Certifique-se de que a permissão foi concedida.");
+                });
+            } else {
+                alert("Geolocalização não suportada pelo navegador.");
+            }
+        }
+
+        function calcularDistancia(lat1, lon1, lat2, lon2) {
+            const R = 6371e3; // Raio da Terra em metros
+            const rad = Math.PI / 180;
+            const dLat = (lat2 - lat1) * rad;
+            const dLon = (lon2 - lon1) * rad;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * rad) * Math.cos(lat2 * rad) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return R * c; // Distância em metros
+        }
+    </script>
+</head>
+<body onload="verificarAcesso()">
+    <h2>Formulário de Presença</h2>
+    <div id="formulario" style="display: none;">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" required><br><br>
+        <label for="rgm">RGM:</label>
+        <input type="text" id="rgm" required><br><br>
+        <label for="turma">Turma:</label>
+        <input type="text" id="turma" required><br><br>
+        <label for="turno">Turno:</label>
+        <input type="text" id="turno" required><br><br>
+        <button type="submit">Enviar</button>
+    </div>
+</body>
+</html>
