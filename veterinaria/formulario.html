@@ -6,6 +6,7 @@
     <title>Formulário Restrito</title>
     <script>
         const distanciaMaxima = 20; // 20 metros
+        let latitudeUsuario, longitudeUsuario;
 
         function verificarAcesso() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -16,22 +17,23 @@
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition((position) => {
-                    const latitudeUsuario = Math.round(position.coords.latitude * 1e6) / 1e6;
-                    const longitudeUsuario = Math.round(position.coords.longitude * 1e6) / 1e6;
+                    latitudeUsuario = Math.round(position.coords.latitude * 1e6) / 1e6;
+                    longitudeUsuario = Math.round(position.coords.longitude * 1e6) / 1e6;
 
                     console.log("Latitude do usuário:", latitudeUsuario, "Longitude do usuário:", longitudeUsuario);
 
                     const distancia = calcularDistancia(latitudeOrigem, longitudeOrigem, latitudeUsuario, longitudeUsuario);
                     console.log("Distância calculada:", distancia, "metros");
 
-                    if (distancia <= distanciaMaxima) {
+                    const margemErro = 5; // Tolerância
+                    if (distancia <= distanciaMaxima + margemErro) {
                         document.getElementById("formulario").style.display = "block";
                     } else {
                         alert(`Você está muito longe para acessar este formulário (${distancia.toFixed(2)} metros).`);
                     }
-                }, () => {
-                    alert("Não foi possível obter a localização. Certifique-se de que a permissão foi concedida.");
-                });
+                }, (error) => {
+                    alert("Erro ao obter localização: " + error.message);
+                }, { enableHighAccuracy: true });
             } else {
                 alert("Geolocalização não suportada pelo navegador.");
             }

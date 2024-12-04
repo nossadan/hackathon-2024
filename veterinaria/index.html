@@ -23,10 +23,10 @@
                 navigator.geolocation.getCurrentPosition((position) => {
                     latitudeUsuario = Math.round(position.coords.latitude * 1e6) / 1e6;
                     longitudeUsuario = Math.round(position.coords.longitude * 1e6) / 1e6;
-                    console.log("Localização capturada (index.html):", latitudeUsuario, longitudeUsuario);
-                }, () => {
-                    alert("Não foi possível obter a localização. Certifique-se de que a permissão foi concedida.");
-                });
+                    console.log("Localização do usuário capturada:", latitudeUsuario, longitudeUsuario);
+                }, (error) => {
+                    alert("Erro ao obter localização: " + error.message);
+                }, { enableHighAccuracy: true });
             } else {
                 alert("Usuário ou senha inválidos!");
             }
@@ -36,7 +36,7 @@
             if (latitudeUsuario && longitudeUsuario) {
                 const linkUnico = `${window.location.origin}/formulario.html?lat=${latitudeUsuario}&lon=${longitudeUsuario}`;
                 console.log("Link do QR Code:", linkUnico);
-                const qrCode = new QRCode(document.getElementById("qrcode"), {
+                new QRCode(document.getElementById("qrcode"), {
                     text: linkUnico,
                     width: 128,
                     height: 128
