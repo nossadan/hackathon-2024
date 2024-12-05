@@ -1,7 +1,7 @@
 /* Estilos para o formulário */
 body {
     font-family: Arial, sans-serif;
-    background-image: linear-gradient(to right top, #003B71, #2882d6);
+    background-image: linear-gradient(to right top,  #9ad8d2, #486766);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,14 +18,16 @@ body {
     background-color: #f9f9f9;
 }
 
-#btnAutenticar{
-    background-color: #FF1048;
-  border-radius: 5px;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  margin-bottom: 5px ;
+#btnAutenticar {
+    background-color: #acb3b1;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-left: 150px;
+
 }
 
 label {
