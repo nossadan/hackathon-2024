@@ -1,34 +1,59 @@
 /* Estilos Globais */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Poppins", sans-serif;
+    background-image: linear-gradient(to right top, #003B71, #2882d6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
+
 .form-container {
     max-width: 400px;
     margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
+    padding: 30px;
+    border: 1px solid #000; /* Substituído o cinza por preto */
     border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.8);
 }
+
 label {
     display: block;
     margin-bottom: 8px;
+    color: #000; /* Ajuste para texto em preto */
 }
+
 input[type="text"], input[type="number"], select {
     width: 100%;
     padding: 8px;
     margin-bottom: 12px;
-    border: 1px solid #ccc;
+    border: 1px solid #000; /* Preto para seguir o tema */
     border-radius: 4px;
 }
+
 .error {
-    color: red;
+    color: #FF1048; /* Alinhado com o botão */
     font-size: 14px;
 }
+
 .success {
     color: green;
     font-size: 14px;
 }
+
 .blocked {
-    color: red;
+    color: #FF1048; /* Para seguir o tema */
     font-weight: bold;
+}
+
+#btnAutenticar{
+    background-color: #FF1048;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 5px ;
 }
