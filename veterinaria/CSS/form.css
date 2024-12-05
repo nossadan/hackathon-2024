@@ -1,6 +1,6 @@
-/* Estilos Globais */
+/* Estilos para o formulário */
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: Arial, sans-serif;
     background-image: linear-gradient(to right top, #003B71, #2882d6);
     display: flex;
     justify-content: center;
@@ -12,40 +12,10 @@ body {
 .form-container {
     max-width: 400px;
     margin: 0 auto;
-    padding: 30px;
-    border: 1px solid #000; /* Substituído o cinza por preto */
+    padding: 20px;
+    border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.8);
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #000; /* Ajuste para texto em preto */
-}
-
-input[type="text"], input[type="number"], select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 12px;
-    border: 1px solid #000; /* Preto para seguir o tema */
-    border-radius: 4px;
-}
-
-.error {
-    color: #FF1048; /* Alinhado com o botão */
-    font-size: 14px;
-}
-
-.success {
-    color: green;
-    font-size: 14px;
-}
-
-.blocked {
-    color: #FF1048; /* Para seguir o tema */
-    font-weight: bold;
+    background-color: #f9f9f9;
 }
 
 #btnAutenticar{
@@ -56,4 +26,41 @@ input[type="text"], input[type="number"], select {
   padding: 10px 20px;
   cursor: pointer;
   margin-bottom: 5px ;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+.success,
+.blocked,
+.distance-error {
+    font-size: 14px;
+    font-weight: bold;
+    display: none;
+}
+
+.success {
+    color: green;
+}
+
+.blocked,
+.distance-error {
+    color: red;
 }
