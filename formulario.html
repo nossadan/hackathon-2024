@@ -92,12 +92,7 @@
                 document.getElementById('nomeError').textContent = "O nome é obrigatório!";
             }
 
-            // Verifica se o RGM é um número válido (supondo que o RGM tenha 6 dígitos)
-            const rgm = document.getElementById('rgm').value;
-            if (!rgm || rgm.length !== 6) {
-                isValid = false;
-                document.getElementById('rgmError').textContent = "O RGM deve ter exatamente 6 dígitos!";
-            }
+            
 
             // Verifica se a turma está preenchida
             const turma = document.getElementById('turma').value;
