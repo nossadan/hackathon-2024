@@ -35,7 +35,7 @@
 
         function gerarQRCode() {
             if (latitudeUsuario && longitudeUsuario) {
-                const linkUnico = `${window.location.origin}/formulario.html?lat=${latitudeUsuario}&lon=${longitudeUsuario}`;
+                const linkUnico = `${window.location.origin}../public/formulario.html?lat=${latitudeUsuario}&lon=${longitudeUsuario}`;
                 console.log("Link do QR Code:", linkUnico);
                 new QRCode(document.getElementById("qrcode"), {
                     text: linkUnico,
