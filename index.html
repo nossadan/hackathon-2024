@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulário com Restrição</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./css/index.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         const usuariosAutorizados = {
@@ -44,7 +44,7 @@
         function gerarQRCode() {
             if (latitudeUsuario && longitudeUsuario) {
                 const timestamp = Date.now(); // Gerar um identificador único
-                const linkUnico = `${window.location.origin}/formulariommm.html?latGerador=${latitudeUsuario}&lonGerador=${longitudeUsuario}&token=${timestamp}`;
+                const linkUnico = `${window.location.origin}/form.html?latGerador=${latitudeUsuario}&lonGerador=${longitudeUsuario}&token=${timestamp}`;
                 console.log("Link do QR Code:", linkUnico);
 
                 const qrCodeContainer = document.getElementById("qrcode");
@@ -72,7 +72,7 @@
             // Mostrar mensagem de "Calculando a distância"
             document.getElementById("calculando").style.display = "block";
             document.getElementById("acessoNegado").style.display = "none";
-            document.getElementById("formulariommm").style.display = "none";
+            document.getElementById("form").style.display = "none";
 
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(position => {
@@ -87,10 +87,10 @@
                             document.getElementById("calculando").style.display = "none";
 
                             if (data.message === "Acesso permitido") {
-                                document.getElementById("formulariommm").style.display = "block";
+                                document.getElementById("form").style.display = "block";
                                 document.getElementById("acessoNegado").style.display = "none";
                             } else {
-                                document.getElementById("formulariommm").style.display = "none";
+                                document.getElementById("form").style.display = "none";
                                 document.getElementById("acessoNegado").style.display = "block";
                             }
                         });
@@ -130,7 +130,7 @@
     </div>
 
     <!-- Formulário -->
-    <div id="formulariommm" style="display: none;">
+    <div id="form" style="display: none;">
         <h2>Formulário de Presença</h2>
         <form method="POST" action="/submit-form">
             <label for="nome">Nome:</label>
@@ -151,7 +151,7 @@
 
     <script>
         // Chama a validação automaticamente ao carregar o formulário
-        if (window.location.pathname === '/formulariommm.html') {
+        if (window.location.pathname === '/form.html') {
             validarAcesso();
         }
     </script>
