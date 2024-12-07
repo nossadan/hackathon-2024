@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./veterinaria/CSS/form.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação de Formulário</title>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Formulário de Autenticação</h1>
+        <form id="authForm">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+            <span class="error" id="nomeError"></span>
+
+            <label for="rgm">RGM:</label>
+            <input type="number" id="rgm" name="rgm" required>
+            <span class="error" id="rgmError"></span>
+
+            <label for="turma">Turma:</label>
+            <input type="text" id="turma" name="turma" required>
+            <span class="error" id="turmaError"></span>
+
+            <label for="turno">Turno:</label>
+            <select id="turno" name="turno" required>
+                <option value="">Selecione o turno</option>
+                <option value="manha">Manhã</option>
+                <option value="tarde">Tarde</option>
+                <option value="noite">Noite</option>
+            </select>
+            <span class="error" id="turnoError"></span>
+
+            <button id="btnAutenticar" type="submit">Autenticar</button>
+        </form>
+
+        <div id="formSuccess" class="success">Formulário enviado com sucesso!</div>
+        <div id="formBlocked" class="blocked">Você já tentou submeter este formulário. Acesso bloqueado. Tente novamente após 2 minutos.</div>
+    </div>
+
+    <script>
+        // Função para verificar se o usuário já tentou submeter o formulário
+        function checkFormSubmission() {
+            const isBlocked = localStorage.getItem('formSubmitted');
+            const lastSubmitTime = localStorage.getItem('lastSubmitTime');
+            const currentTime = new Date().getTime();
+
+            // Verifica se o formulário foi bloqueado anteriormente
+            if (isBlocked && lastSubmitTime) {
+                const timeElapsed = currentTime - lastSubmitTime;
+                const timeLimit = 2 * 60 * 1000; // 2 minutos em milissegundos
+
+                // Se o tempo decorrido for maior que o limite de 24 horas, libera o formulário
+                if (timeElapsed >= timeLimit) {
+                    localStorage.removeItem('formSubmitted');
+                    localStorage.removeItem('lastSubmitTime');
+                    document.getElementById('formBlocked').style.display = 'none';
+                    document.getElementById('authForm').style.display = 'block';
+                } else {
+                    document.getElementById('formBlocked').style.display = 'block';
+                    document.getElementById('authForm').style.display = 'none'; // Esconde o formulário
+                }
+            }
+        }
+
+        // Função para bloquear o formulário após a primeira submissão
+        function blockForm() {
+            const currentTime = new Date().getTime();
+            localStorage.setItem('formSubmitted', 'true');
+            localStorage.setItem('lastSubmitTime', currentTime);
+            document.getElementById('formSuccess').style.display = 'block';
+            document.getElementById('authForm').style.display = 'none'; // Esconde o formulário
+        }
+
+        // Chama a função para verificar se o usuário foi bloqueado ou se o formulário deve ser liberado
+        checkFormSubmission();
+
+        // Validação e envio do formulário
+        document.getElementById('authForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio normal do formulário
+
+            // Limpa mensagens de erro anteriores
+            clearErrors();
+
+            let isValid = true;
+
+            // Verifica se o nome está vazio
+            const nome = document.getElementById('nome').value;
+            if (nome.trim() === '') {
+                isValid = false;
+                document.getElementById('nomeError').textContent = "O nome é obrigatório!";
+            }
+
+            
+
+            // Verifica se a turma está preenchida
+            const turma = document.getElementById('turma').value;
+            if (turma.trim() === '') {
+                isValid = false;
+                document.getElementById('turmaError').textContent = "A turma é obrigatória!";
+            }
+
+            // Verifica se o turno foi selecionado
+            const turno = document.getElementById('turno').value;
+            if (turno === '') {
+                isValid = false;
+                document.getElementById('turnoError').textContent = "O turno deve ser selecionado!";
+            }
+
+            // Se o formulário for válido, bloqueia o envio e exibe uma mensagem de sucesso
+            if (isValid) {
+                blockForm();
+            }
+        });
+
+        // Função para limpar mensagens de erro
+        function clearErrors() {
+            document.getElementById('nomeError').textContent = '';
+            document.getElementById('rgmError').textContent = '';
+            document.getElementById('turmaError').textContent = '';
+            document.getElementById('turnoError').textContent = '';
+            document.getElementById('formSuccess').style.display = "none";
+        }
+    </script>
+</body>
+</html>
