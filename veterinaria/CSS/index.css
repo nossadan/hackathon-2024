@@ -7,49 +7,52 @@
 }
 
 body {
-  background-image: linear-gradient(to right top, #003B71,#2882d6);
+  background-image: linear-gradient(#003B71,#1764ac);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
   font-family: "Poppins", sans-serif;
+  color: white;
 }
 
 #login{
   text-align: center;
   align-items: center;
   padding: 20px;
-  background-color: #fff;
-  color: #000;
-  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.801);
-  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 5px;
 }
 
 #dashboard{
-  padding: 50px 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   text-align: center;
-  flex-direction: column;
-  background-color: #fff;
-  color: #000;
-  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.801);
-  border-radius: 5px;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+  
+#qrcode img,
+#qrcode canvas {
+  width: 250px; /* Largura desejada */
+  height: 250px; /* Altura desejada */
+  display: block; /* Centraliza se necessário */
+  margin: 0 auto; /* Centraliza horizontalmente */
 }
 
-#qrcode{
-  margin-left: 30px;
+div {
+  text-align: center;
 }
-
+  
 input {
   padding: 10px;
   border-radius: 5px;
   border: none;
   margin: 5px 0;
   width: 200px;
-  border: #000 1px solid;
 }
   
 button {
@@ -65,4 +68,3 @@ button {
 button:hover {
   opacity: 0.9;
 }
-  
